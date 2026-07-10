@@ -7,7 +7,7 @@
 #include <ADSR.h>
 #include <Line.h>
 #include <mozzi_midi.h>
-#include <mozzi_rand.h>
+#include <mozzi_rand.h>[]
 
 #include "mozart.h"
 
@@ -105,6 +105,14 @@ void BuildSong(void)
 void setup()
 {
   pinMode(LED_PIN, OUTPUT);
+
+  uint32_t seed1 = analogRead(B0); // 0 - 4095
+  delay(25);
+  uint32_t seed2 = analogRead(B0); // 0 - 4095
+
+  uint32_t seed = seed1 * seed2; // 0 - 16777216
+  // srand(seed);
+  randSeed(seed);
 
   startMozzi(CONTROL_RATE);
 
