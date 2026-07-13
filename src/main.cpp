@@ -7,7 +7,7 @@
 #include <ADSR.h>
 #include <Line.h>
 #include <mozzi_midi.h>
-#include <mozzi_rand.h>[]
+#include <mozzi_rand.h>
 
 #include "mozart.h"
 
@@ -86,9 +86,9 @@ void BuildSong(void)
   currentMeasure = 0;
   currentBeat = 0;
   microTimeEvent = microTimeEvent + 10000000;
-  attack += 8;
-  decay += 8;
-
+  //attack += 8;
+  //decay += 8;
+/*
   if (attack > 255)
   {
     attack = 8;
@@ -97,6 +97,7 @@ void BuildSong(void)
   {
     decay = 4;
   }
+    */
   envelope1.setADLevels(attack, decay);
   envelope2.setADLevels(attack, decay);
   envelope3.setADLevels(attack, decay);
@@ -104,6 +105,10 @@ void BuildSong(void)
 
 void setup()
 {
+
+  Serial.begin(115200);
+  delay(250);
+
   pinMode(LED_PIN, OUTPUT);
 
   uint32_t seed1 = analogRead(B0); // 0 - 4095
@@ -114,10 +119,12 @@ void setup()
   // srand(seed);
   randSeed(seed);
 
+  Serial.println(seed);
+
   startMozzi(CONTROL_RATE);
 
-  attack = 8;
-  decay = 4;
+  attack = 5;
+  decay = 3;
 
   /*
   envelope1.setADLevels(150, 240);
@@ -138,7 +145,7 @@ void setup()
   microTime = mozziMicros();
   microTimeEvent = microTime + 220000;
   eventType = 1;
-  randSeed();
+
   // Serial.begin(9600);
 }
 
